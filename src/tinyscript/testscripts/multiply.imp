@@ -1,0 +1,2 @@
+using mccarthy.db:
+output x*1

@@ -1,0 +1,3 @@
+using mccarthy.db:
+x := 7;
+output (x)
