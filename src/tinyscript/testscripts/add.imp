@@ -1,2 +1,2 @@
-using mccarthy.db:
+using add.db as user with password:
 output 0+7

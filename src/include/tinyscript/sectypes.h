@@ -4,6 +4,7 @@
 
 #include "common/extendible_hash.h"
 #include "tinyscript/ast.h"
+
 struct sec_label {
     char *name; // human-readable name associated with label
 };

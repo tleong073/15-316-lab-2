@@ -1,3 +1,4 @@
+
 #include <string.h>
 
 #include "common/safemem.h"
@@ -274,6 +275,7 @@ hash_table_t *hash_table_deserialize(int in)
 
   while (Rio_readlineb(&rp, read_buf, MAXLINE) != 0)
   {
+    //printf("BUFFF: %s %d \n",read_buf,in);
     if (sscanf(read_buf, "%s %d\n", str_buf, &value) < 2)
       unix_error("[hash_table_deserialize]: malformed file");
     hash_table_insert(result, str_buf, value);
