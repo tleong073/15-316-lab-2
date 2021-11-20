@@ -75,7 +75,7 @@ sec_label *type_aexp(sec_ctxt *G, sec_lattice *L, aexp *a) {
 
     switch(a->optype) {
         case CONST:
-        printf("CONSTANT \n");
+        //printf("CONSTANT \n");
             label = fillLabel(L,"pub");
             break;
         case IDENT:
@@ -177,9 +177,9 @@ bool typecheck_com(sec_ctxt *G, sec_lattice *L, sec_label *lu, com *c) {
         typechecks = true;
         break;
     case ASGN:
-    printf("ASSGN \n");
+    //printf("ASSGN \n");
         if(hash_table_find(G->ht,c->data.asgn->var,ind)) {
-            printf("FOUND IT: %s \n",c->data.asgn->var);
+            //printf("FOUND IT: %s \n",c->data.asgn->var);
             index = *ind;
             var = (sec_label*)(*ubarray_elem(L->uba,index));
             if(sec_lessthan(L,sec_lub(L,var,G->pc),lu)) {
@@ -190,7 +190,7 @@ bool typecheck_com(sec_ctxt *G, sec_lattice *L, sec_label *lu, com *c) {
         } else {
             //Case where we haven't declared the variable yet.  Shouldn't ever happen if we populate context correctly
             //Insert the new variabel for adppending to label
-            printf("TO ASSIGN: %s \n",c->data.asgn->var);
+            //printf("TO ASSIGN: %s \n",c->data.asgn->var);
             hash_table_insert(G->ht,c->data.asgn->var,2);
             typechecks =  true;
         }
@@ -230,7 +230,7 @@ bool typecheck_com(sec_ctxt *G, sec_lattice *L, sec_label *lu, com *c) {
         }
         break;
     case OUTP:
-        printf("OUTPUT \n");
+        //printf("OUTPUT \n");
         typechecks = sec_lessthan(L,sec_lub(L,type_aexp(G,L,c->data.output->a),G->pc),lu); 
         break;
     default:

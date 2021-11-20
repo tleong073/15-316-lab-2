@@ -33,7 +33,7 @@ int findLabel(sec_lattice *L,char* ident) {
 
 
 bool isValidUser(char* username, char* password) {
-    printf("HDAWDDASD \n");
+    //printf("HDAWDDASD \n");
     FILE * fp;
     char * line = NULL;
     size_t len = 0;
@@ -62,7 +62,7 @@ bool isValidUser(char* username, char* password) {
         }
         for( int j = index+1; j<read-1;j++) {
           if( line[j] != password[j-index-1] ) {
-            printf("NO GOOD password: %d %c %c %s d \n", j,line[j],password[j-index-1],line);
+            //printf("NO GOOD password: %d %c %c %s d \n", j,line[j],password[j-index-1],line);
             flag = true;
             break;
           }
@@ -120,16 +120,16 @@ void fillContext(sec_ctxt* G,sec_lattice* L,char*dbfile,char*labelfile) {
     if(tmp_location == -1) {
       sec_label * cur = malloc(sizeof(sec_label));
       cur->name = labelbuf;
-      printf("TRYING %s %s %s %d %d \n",tmp,labelbuf,L->user_label->name,strlen(labelbuf),strlen(L->user_label->name));
+      //printf("TRYING %s %s %s %d %d \n",tmp,labelbuf,L->user_label->name,strlen(labelbuf),strlen(L->user_label->name));
       ubarray_push_back(L->uba,tmp);
       hash_table_insert(G->ht,tmp,counter);
       counter++;
     } else {
-      printf("ALREADY IN \n");
+      //printf("ALREADY IN \n");
        hash_table_insert(G->ht,tmp,tmp_location);
     }
   }
-  printf("Read: %d \n",read);
+  //printf("Read: %d \n",read);
   fclose(fp);
   return;
 }
@@ -139,7 +139,7 @@ void hash_table_serialize_label(sec_lattice* L,hash_table_t *table, int out)
   hash_table_check(table);
   hash_table_iterator *it = hash_table_iterate(table);
   entry_t *entry = iterator_elem(it);
-  printf("HERE WE GO\n");
+  //printf("HERE WE GO\n");
   while (entry != NULL)
   {
     
@@ -153,14 +153,14 @@ void hash_table_serialize_label(sec_lattice* L,hash_table_t *table, int out)
 
 
 void updateLabel(sec_ctxt* G,sec_lattice*L, char* labelfile){
-  printf("UPDATING \n");
+  //printf("UPDATING \n");
   int fd = Open(labelfile, O_WRONLY | O_TRUNC, 0);
   hash_table_serialize_label(L,G->ht,fd);
   Close(fd);
 }
 
 int main(int argc, char *argv[]) {
-  printf("ENTER \n");
+  //printf("ENTER \n");
   FILE *fp;
   if (argc != 2) {
     fprintf(stderr, "usage: %s <file>\n", argv[0]);
@@ -188,7 +188,7 @@ int main(int argc, char *argv[]) {
   //User Authenication
   //printf("%s \n", pbuf,program->user);
   if (!isValidUser(program->user,program->passwd)) {
-    fprintf(stderr, "Fatal Error: unauthorized access, invalid credentials");
+    fprintf(stderr, "Fatal Error: unauthorized access, invalid credentials\n");
     exit(1);
   }
   
@@ -217,7 +217,7 @@ int main(int argc, char *argv[]) {
    //printf("LABELFILE OUTSIDE: %s \n",labelfile);
    int* kek = malloc(sizeof(int));
    hash_table_find(G->ht,"x",kek);
-   printf("x location: %d %s %s %s \n", *kek,program->table,program->user,program->passwd);
+   //printf("x location: %d %s %s %s \n", *kek,program->table,program->user,program->passwd);
 
   s = init_state(program->table);
   if(!typecheck_com(G,L,user,program->command)) {
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
     printf("ERROR: script terminated early due to insufficient resources\n");
   else
     store_state(s, program->table);
-    printf("LABELFILE: %s \n",labelfile);
+    //printf("LABELFILE: %s \n",labelfile);
     updateLabel(G,L,labelfile);
 
 }
